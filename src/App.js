@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import Logo from './images/airport.png';
 import './App.css';
 
-const API_BASE_URL = 'https://api.schiphol.nl/public-flights/flights';
+const API_BASE_URL = 'https://api.schiphol.nl/public-flights/flight'
 const APP_ID = '274c4c05';
 const APP_KEY = 'e4ac444289079f2961f3f69de9df3688'; 
 
@@ -60,12 +61,17 @@ const App = () => {
     }
   };
 
+  useEffect(()=>{
+    const fetchData = async()=>{
+      const response = await axios.get('https://api.schiphol.nl/public-flights/flight');
+    };
+  });
   useEffect(() => {
     fetchData();
-  }, [filter]);
+  }, [filter,fetchData]);
 
-  const handleFilterChange = event => {
-    setFilter({ ...filter, [event.target.name]: event.target.value });
+  const handleFilterChange = e => {
+    setFilter({ ...filter, [e.target.name]: e.target.value });
   };
 
   const handleSearch = () => {
@@ -74,7 +80,8 @@ const App = () => {
 
   return (
     <div className="container">
-      <h1>Schiphol Flight Information</h1>
+      <img src={Logo}/>
+      <h1>Schiphol Flight </h1>
       <div>
         <label>
           Direction:
